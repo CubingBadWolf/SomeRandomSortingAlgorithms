@@ -8,6 +8,7 @@ import time
 import numpy as np
 import random
 from MergeSort import MergeSort
+from JumpSearching import JumpSearching as JumpSearch
 from List_Generators import GenList
 
 x_vals = []
@@ -25,19 +26,34 @@ for i in range(1, 101):
         times.append(end-start)
     y_vals.append(sum(times)/len(times))
 
-#thisx = []
-#for n in range(1, 101):
-#    for p in range(1, 101):
-#        thisx.append(n)
-#    plt.scatter(thisx, y_vals[n-1], label="average results", color="green", marker="*", s=30)
-#    thisx.clear()'''
-
 plt.scatter(x_vals, y_vals, label="average results", color="green", marker="*", s=30)
-# x-axis label
+
 plt.xlabel('number of elements')
-# frequency label
+
 plt.ylabel('time in seconds')
-# plot title
+
 plt.title('Time of merge sort in seconds per number of elements!')
-# function to show the plot
+
+plt.show()
+SearchX = []
+SearchY = []
+SearchTime = []
+
+
+for v in data:
+    data = GenList(1, 100)
+    SearchX.append(v)
+    for w in range(1, 101):
+        start = time.perf_counter()
+        JumpSearch(data, w)
+        end = time.perf_counter()
+        SearchTime.append(end-start)
+    SearchY.append(sum(SearchTime)/len(SearchTime))
+
+
+plt.scatter(SearchX, SearchY, label="average results", color="green", marker="*", s=30)
+
+plt.xlabel('Target Element')
+plt.ylabel('Time in seconds')
+plt.title('Time of Search for each element averaged 100 times in a 100 element array')
 plt.show()
